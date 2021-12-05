@@ -12,7 +12,10 @@ var svg = d3.select("#main")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-// read in data
+
+var div = d3.select("body").append("div")
+.attr("class", "tooltip")
+.style("opacity", 0);
 
 function dataPreprocessor(row) {
     return {
@@ -208,7 +211,31 @@ function updatePlot(dataset) {
         .attr("r", 3)
         .style("fill", "#69b3a2")
         .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+          "translate(" + margin.left + "," + margin.top + ")")
+          .on('mouseover', function (d, i) {
+            d3.select(this).transition()
+                 .duration('30')
+                 .attr("r", 5);
+            //Makes div appear
+            div.transition()
+                 .duration(100)
+                 .style("opacity", 1);
+       }).on('mouseout', function (d, i) {
+        d3.select(this).transition()
+             .duration('30')
+             .attr("r", 3);
+
+        //makes div disappear
+        div.transition()
+             .duration('30')
+             .style("opacity", 0);
+
+        // display text on hover   
+        div.html(d.Name)
+        .style("left", (d3.event.pageX + 10) + "px")
+        .style("top", (d3.event.pageY - 15) + "px");;
+            
+   });
  
     
     circles.exit().remove(); 
