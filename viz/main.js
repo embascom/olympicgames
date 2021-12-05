@@ -13,6 +13,7 @@ var svg = d3.select("#main")
           "translate(" + margin.left + "," + margin.top + ")");
 
 
+// div for hover feature
 var div = d3.select("body").append("div")
 .attr("class", "tooltip")
 .style("opacity", 0);
@@ -37,6 +38,7 @@ function dataPreprocessor(row) {
     };
 }
 
+//used for updating scatter plot with year brush
 rangeFilter = function(x1, x2) {
 
     d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
@@ -44,8 +46,6 @@ rangeFilter = function(x1, x2) {
     var newDS = dataset.filter(function(d) {
         return d.Year >= x1 && d.Year <= x2;
     });
-
-    //console.log(newDS);
  
     updatePlot(newDS);
 
@@ -158,15 +158,14 @@ slider = function(min, max, name) {
    
 }
 
-
 var data;
 var x;
 var y;
+//set up plot
 d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
 
     data = dataset
 
-    
    // Add X axis
     x = d3.scaleLinear()
     .domain([0, d3.max(dataset, function(d) { return d.Weight; })])
@@ -193,11 +192,15 @@ d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
     slider(d3.min(dataset, function(d) { return d.Year; }),
          d3.max(dataset, function(d) { return d.Year; }));
 
+
+    // full dataset for starting point
     updatePlot(dataset);    
 })
 
 
 
+//**USE THIS FUNCTION WHEN CONNECTING OTHER FILTERS**
+// param: filtered dataset
 function updatePlot(dataset) {
     var circles = svg.selectAll('circle')
     .data(dataset, function(d) {
@@ -212,32 +215,31 @@ function updatePlot(dataset) {
         .style("fill", "#69b3a2")
         .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")")
-          .on('mouseover', function (d, i) {
+        .on('mouseover', function (d, i) {
             d3.select(this).transition()
-                 .duration('30')
-                 .attr("r", 5);
+                    .duration('30')
+                    .attr("r", 5);
             //Makes div appear
             div.transition()
-                 .duration(100)
-                 .style("opacity", 1);
+                .duration(100)
+                .style("opacity", 1);
+
+             // display text on hover   
+             div.html(d.Name)
+                .style("left", (d3.event.pageX + 10) + "px")
+                .style("top", (d3.event.pageY - 15) + "px");;
+
        }).on('mouseout', function (d, i) {
-        d3.select(this).transition()
-             .duration('30')
-             .attr("r", 3);
+            d3.select(this).transition()
+                .duration('30')
+                .attr("r", 3);
 
-        //makes div disappear
-        div.transition()
-             .duration('30')
-             .style("opacity", 0);
-
-        // display text on hover   
-        div.html(d.Name)
-        .style("left", (d3.event.pageX + 10) + "px")
-        .style("top", (d3.event.pageY - 15) + "px");;
-            
+            //makes div disappear
+            div.transition()
+                .duration('30')
+                .style("opacity", 0);       
    });
  
-    
     circles.exit().remove(); 
 }
 
