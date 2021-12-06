@@ -23,18 +23,11 @@ function dataPreprocessor(row) {
         "ID": +row.ID,
         "Name": row.Name,
         "Sex": row.Sex,
-        "Age": +row.Sex,
         "Height": +row.Height,
         "Weight": +row.Weight,
         "Team": row.Team,
-        "NOC": row.NOC,
-        "Games": row.Games,
         "Year": row.Year,
-        "Season": row.Season,
-        "City": row.City,
-        "Sport": row.Sport,
-        "Event": row.Event,
-        "Medal":row.Medal
+        "Sport": row.Sport
     };
 }
 
@@ -89,6 +82,11 @@ slider = function(min, max, name) {
         .attr('id', 'labelright')
         .attr('x', 0)
         .attr('y', height + 15)
+
+    var title = g.append('text')
+    .attr('x', 0)
+    .attr('y', 0)
+    .text('Select Year Range: ')
 
         // define brush
     var brush = d3.brushX()
@@ -174,12 +172,16 @@ d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
 
+
     // Add Y axis
     y = d3.scaleLinear()
     .domain([0, d3.max(dataset, function(d) { return d.Height; })])
     .range([ height, 0]);
+
     svg.append("g")
-    .call(d3.axisLeft(y));
+    .call(d3.axisLeft(y))
+    
+   
 
     svg.append("text")
     .attr("class", "x label")
@@ -188,7 +190,10 @@ d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
     .attr("y", height + 40)
     .text("Weight (kg)");
 
+
    // add y axis label (height in cm)
+  
+
     slider(d3.min(dataset, function(d) { return d.Year; }),
          d3.max(dataset, function(d) { return d.Year; }));
 
