@@ -78,7 +78,7 @@ slider = function(min, max, name) {
     // dimensions of slider bar
     var width = w - margin.left - margin.right;
     var height = h - margin.top - margin.bottom;
-    var padding = {t: 60, r: 40, b: 30, l: 40};
+    var padding = {t: 10, r: 40, b: 30, l: 10};
     var x = d3.scaleLinear()
     .domain(range)  
     .range([0, width]);
