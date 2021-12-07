@@ -1,7 +1,7 @@
 # The Olympic Games
 By Arjun Aggarwal, Emily Bascom, and Ally Krinsky
 
-The hosted website can be found [here]()).
+The hosted website can be found ([here]()).
 
 To run the program locally on a local web server:
 1. Open `Terminal` (for Mac) or `Command Prompt` (for Windows). 
