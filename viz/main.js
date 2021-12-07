@@ -53,6 +53,10 @@ rangeFilter = function(x1, x2) {
         var newDS = dataset.filter(function(d) {
             return d.Team == selectedOption;
         });
+
+        if (selectedOption == 'All') {
+            newDS = dataset;
+        }
      
         updatePlot(newDS);
     
@@ -178,10 +182,12 @@ d3.csv('athlete_events_2010_2016.csv', dataPreprocessor).then(function(dataset) 
 
     data = dataset
 
+   
    // Add X axis
     x = d3.scaleLinear()
     .domain([0, d3.max(dataset, function(d) { return d.Weight; })])
     .range([ 0, width]);
+
     svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
@@ -192,9 +198,16 @@ d3.csv('athlete_events_2010_2016.csv', dataPreprocessor).then(function(dataset) 
     .domain([0, d3.max(dataset, function(d) { return d.Height; })])
     .range([ height, 0]);
 
+    d3.select('svg').append('text')
+    .text('Height (cm)')
+    .attr('class', 'axis-label')
+    .attr('transform', 'translate('+[20, height / 3 * 2]+')rotate(270)');
+
+
     svg.append("g")
     .call(d3.axisLeft(y))
     
+   
 
     svg.append("text")
     .attr("class", "x label")
