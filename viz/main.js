@@ -202,6 +202,75 @@ d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
     updatePlot(dataset);    
 })
 
+// Radio Buttons
+var w= 285;
+var h= 130;
+var svg= d3.select("body")
+            .append("svg")
+            .attr("width",w)
+            .attr("height",h)
+
+//backdrop of color
+var background= svg.append("rect")
+                    .attr("id","backgroundRect")
+                    .attr("width","100%")
+                    .attr("height","100%")
+                    .attr("x",0)
+                    .attr("y",0)
+                    .attr("fill","#DAC99A")
+
+//container for all buttons
+var allButtons= svg.append("g")
+                    .attr("id","allButtons") 
+
+//fontawesome button labels
+var labels= ['\uf183','\uf182'];
+
+//groups for each button (which will hold a rect and text)
+var buttonGroups= allButtons.selectAll("g.button")
+                        .data(labels)
+                        .enter()
+                        .append("g")
+                        .attr("class","button")
+                        .style("cursor","pointer")
+
+//button width and height
+var bWidth= 40; //button width
+var bHeight= 25; //button height
+var bSpace= 10; //space between buttons
+var x0= 20; //x offset
+var y0= 10; //y offset
+
+//adding a rect to each button group
+//sidenote: rx and ry give the rects rounded corners
+buttonGroups.append("rect")
+            .attr("class","buttonRect")
+            .attr("width",bWidth)
+            .attr("height",bHeight)
+            .attr("x",function(d,i) {
+                return x0+(bWidth+bSpace)*i;
+            })
+            .attr("y",y0)
+            .attr("rx",5) 
+            .attr("ry",5)
+            .attr("fill","red")
+
+//adding text to each button group, centered within the button rect
+buttonGroups.append("text")
+            .attr("class","buttonText")
+            .attr("font-family","FontAwesome")
+            .attr("x",function(d,i) {
+                return x0 + (bWidth+bSpace)*i + bWidth/2;
+            })
+            .attr("y",y0+bHeight/2)
+            .attr("text-anchor","middle")
+            .attr("dominant-baseline","central")
+            .attr("fill","white")
+            .text(function(d) {return d;})  
+
+var defaultColor= "#7777BB"
+var hoverColor= "#0000ff"
+var pressedColor= "#000077"
 
 //**USE THIS FUNCTION WHEN CONNECTING OTHER FILTERS**
 // param: filtered dataset
