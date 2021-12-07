@@ -1,5 +1,5 @@
-* {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+p {
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 div.tooltip {
@@ -14,11 +14,49 @@ div.tooltip {
     font-size: .7rem;
 }
 
-<<<<<<< HEAD
+body {
+    background-color: #faf0e6;
+}
+
 img {
     width: 400px;
-=======
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
 h2 {
-    font-size: small;
->>>>>>> 4a04d6320582e30b48ba0df88032d179707b3729
+    font-family: 'Roboto Condensed', sans-serif;
+    text-align: center;
+}
+
+#filters {
+    font-family: 'Roboto Condensed', sans-serif;
+    margin: auto;
+    text-align: center;
+}
+
+#countryButton {
+    margin: 10px;
+}
+
+#main {
+    font-family: 'Roboto Condensed', sans-serif;
+    margin: auto;
+    text-align: center;
+}
+
+#main svg{
+    background-color: white;
+}
+
+#slider {
+    padding: 5px;
 }

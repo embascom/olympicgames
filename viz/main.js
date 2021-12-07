@@ -101,10 +101,10 @@ slider = function(min, max, name) {
         .attr('x', 0)
         .attr('y', height + 15)
 
-    var title = g.append('text')
-    .attr('x', 0)
-    .attr('y', 0)
-    .text('Select Year Range: ')
+    // var title = g.append('text')
+    // .attr('x', 0)
+    // .attr('y', 0)
+    // .text('Select Year Range: ')
 
         // define brush
     var brush = d3.brushX()
