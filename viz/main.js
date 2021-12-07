@@ -34,7 +34,7 @@ function dataPreprocessor(row) {
 //used for updating scatter plot with year brush
 rangeFilter = function(x1, x2) {
 
-    d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
+    d3.csv('athlete_events_2010_2016.csv', dataPreprocessor).then(function(dataset) {
 
     var newDS = dataset.filter(function(d) {
         return d.Year >= x1 && d.Year <= x2;
@@ -44,6 +44,20 @@ rangeFilter = function(x1, x2) {
 
     })
 
+ }
+
+ filterCountry = function(selectedOption) {
+
+    d3.csv('athlete_events_2010_2016.csv', dataPreprocessor).then(function(dataset) {
+
+        var newDS = dataset.filter(function(d) {
+            return d.Team == selectedOption;
+        });
+     
+        updatePlot(newDS);
+    
+        })
+     
  }
 
 //slider
@@ -160,7 +174,7 @@ var data;
 var x;
 var y;
 //set up plot
-d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
+d3.csv('athlete_events_2010_2016.csv', dataPreprocessor).then(function(dataset) {
 
     data = dataset
 
@@ -189,7 +203,19 @@ d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
     .attr("y", height + 40)
     .text("Weight (kg)");
 
+    
+    var allGroup = d3.map(dataset, function(d){return(d.Team)}).values()
 
+    
+    // add the options to the button
+    var dropdown = d3.select("#dropdown")
+  
+    dropdown.selectAll('select')
+    .data(allGroup)
+    .enter()
+    .append('option')
+    .text(function (d) { return d.Team; }) // text showed in the menu
+    .attr("value", function (d) { return d.Team; }) // corresponding value returned by the button
    // add y axis label (height in cm)
   
 
@@ -197,15 +223,15 @@ d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
          d3.max(dataset, function(d) { return d.Year; }));
 
 
-    // full dataset for starting point
+    // full dataset for starting point 
     updatePlot(dataset);    
 })
 
 filterGender = function(value) {
 
-    d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
+    d3.csv('athlete_events_2010_2016.csv', dataPreprocessor).then(function(dataset) {
 
-        console.log(value)
+        //console.log(value)
         var newDS;
         if (value == 'both') {
             newDS = dataset
@@ -234,7 +260,11 @@ radio.on('change', function(d) {
     filterGender(this.value);
 })
 
-
+// When the button is changed, run the updateChart function
+d3.select("#dropdown").on("change", function(d) {
+    filterCountry(this.value)
+    //.updatePlot(selectedOption)
+})
 
 //**USE THIS FUNCTION WHEN CONNECTING OTHER FILTERS**
 // param: filtered dataset
