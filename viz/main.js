@@ -224,7 +224,7 @@ var allButtons= svg.append("g")
                     .attr("id","allButtons") 
 
 //fontawesome button labels
-var labels= ['\uf017','\uf200'];
+var labels= ['\uf183','\uf182'];
 
 //groups for each button (which will hold a rect and text)
 var buttonGroups= allButtons.selectAll("g.button")
