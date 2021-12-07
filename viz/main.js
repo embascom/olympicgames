@@ -181,7 +181,6 @@ d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
     svg.append("g")
     .call(d3.axisLeft(y))
     
-   
 
     svg.append("text")
     .attr("class", "x label")
@@ -202,37 +201,68 @@ d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
     updatePlot(dataset);    
 })
 
-// Radio Buttons
+filterGender = function(value) {
+
+    d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
+
+        console.log(value)
+        var newDS;
+        if (value == 'both') {
+            newDS = dataset
+        } else {
+            var letter;
+            if (value == 'male') {
+                letter = 'M'
+            } else if (value == 'female') {
+                letter = 'F'
+            } 
+
+            newDS = dataset.filter(function(d) {
+                return d.Sex == letter;
+            });
+        }
+     
+        updatePlot(newDS);
+    
+        })
+
+}
+
+var radio = d3.selectAll('input');
+
+radio.on('change', function(d) {
+    filterGender(this.value);
+})
+
+/*
 var w= 285;
 var h= 130;
-var svg= d3.select("body")
+var svgRadio= d3.select("#filters")
             .append("svg")
             .attr("width",w)
             .attr("height",h)
 
 //backdrop of color
-var background= svg.append("rect")
+var background= svgRadio.append("rect")
                     .attr("id","backgroundRect")
                     .attr("width","100%")
                     .attr("height","100%")
                     .attr("x",0)
                     .attr("y",0)
                     .attr("fill","#DAC99A")
+            
+var labels= ['\uf183','\uf182'];
 
 //container for all buttons
-var allButtons= svg.append("g")
+var allButtons= svgRadio.append("g")
                     .attr("id","allButtons") 
 
-//fontawesome button labels
-var labels= ['\uf017','\uf200'];
-
-//groups for each button (which will hold a rect and text)
 var buttonGroups= allButtons.selectAll("g.button")
-                        .data(labels)
-                        .enter()
-                        .append("g")
-                        .attr("class","button")
-                        .style("cursor","pointer")
+.data(labels)
+.enter()
+.append("g")
+.attr("class","button")
+.style("cursor","pointer")
 
 //button width and height
 var bWidth= 40; //button width
@@ -244,33 +274,38 @@ var y0= 10; //y offset
 //adding a rect to each button group
 //sidenote: rx and ry give the rects rounded corners
 buttonGroups.append("rect")
-            .attr("class","buttonRect")
-            .attr("width",bWidth)
-            .attr("height",bHeight)
-            .attr("x",function(d,i) {
-                return x0+(bWidth+bSpace)*i;
-            })
-            .attr("y",y0)
-            .attr("rx",5) 
-            .attr("ry",5)
-            .attr("fill","red")
+        .attr("class","buttonRect")
+        .attr("width",bWidth)
+        .attr("height",bHeight)
+        .attr("x",function(d,i) {
+            return x0+(bWidth+bSpace)*i;
+        })
+        .attr("y",y0)
+        .attr("rx",5) 
+        .attr("ry",5)
+        .attr("fill","red")
 
+var gender = ['M', 'F']
 //adding text to each button group, centered within the button rect
-buttonGroups.append("text")
-            .attr("class","buttonText")
-            .attr("font-family","FontAwesome")
-            .attr("x",function(d,i) {
-                return x0 + (bWidth+bSpace)*i + bWidth/2;
-            })
-            .attr("y",y0+bHeight/2)
-            .attr("text-anchor","middle")
-            .attr("dominant-baseline","central")
-            .attr("fill","white")
-            .text(function(d) {return d;})  
+buttonGroups.data(gender).append("text")
+        .attr("class","buttonText")
+        .attr("font-family","FontAwesome")
+        .attr("x",function(d,i) {
+            return x0 + (bWidth+bSpace)*i + bWidth/2;
+        })
+        .attr("y",y0+bHeight/2)
+        .attr("text-anchor","middle")
+        .attr("dominant-baseline","central")
+        .attr("fill","white")
+        .text(function(d) {return d;})
+        .on('change', function(d) {
+            console.log('button changed to ' + this.value);
+            })  
 
 var defaultColor= "#7777BB"
 var hoverColor= "#0000ff"
 var pressedColor= "#000077"
+*/
 
 
 //**USE THIS FUNCTION WHEN CONNECTING OTHER FILTERS**
