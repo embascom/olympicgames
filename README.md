@@ -10,17 +10,18 @@ To run the program locally on a local web server:
 4. Through your machine's terminal, navigate in to your newly cloned repository using `cd olympicgames` command in your terminal.
 5. Once inside your repository, you will need to run a Python command which will create an HTTP web server for this current directory and all of its sub-directories. In the console execute the following command if you are running Python 2.x:
 
-`python -m SimpleHTTPServer 8080`
+    `python -m SimpleHTTPServer 8080`
 
-If you are running Python 3.x or higher, use:
+    If you are running Python 3.x or higher, use:
 
-`python -m http.server 8080` or `python3 -m http.server.8080`
+    `python -m http.server 8080` or `python3 -m http.server.8080`
 
-Additionally, you can run the following code from the `olympicgames` folder in your terminal, which is the method used for running a [live server](https://github.com/tapio/live-server) in the INFO 340 class ([See the bottom of Chapter 2 of Client-Side Web Development Textbook](https://info340.github.io/client-side-development.html)):
+    Additionally, you can run the following code from the `olympicgames` folder in your terminal, which is the method used for running a [live server](https://github.com/tapio/live-server) in the INFO 340 class ([See the bottom of Chapter 2 of Client-Side Web Development Textbook](https://info340.github.io/client-side-development.html)):
 
-`npm install -g live-server`
+    `npm install -g live-server`
 
-`live-server viz`
+    `live-server viz`
+
 6. Lastly, open your browser and type `http://localhost:8080/` in the URL bar and press enter or go.
 
 ## Domain
