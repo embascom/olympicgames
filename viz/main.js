@@ -203,7 +203,6 @@ d3.csv('athlete_events_test.csv', dataPreprocessor).then(function(dataset) {
 })
 
 
-
 //**USE THIS FUNCTION WHEN CONNECTING OTHER FILTERS**
 // param: filtered dataset
 function updatePlot(dataset) {
